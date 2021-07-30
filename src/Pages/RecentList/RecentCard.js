@@ -3,6 +3,7 @@ import data from './data.json'
 import BrandFilter from './BrandFilter';
 import styled from 'styled-components';
 
+
 const CardContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -23,7 +24,7 @@ const Card = styled.div`
 class RecentCard extends Component {
     state= {
       dataList : data,
-      filtering : { brand:[], id:[] }
+      filtering : { brand:[] }
     }
     
     render() {
@@ -59,7 +60,7 @@ class RecentCard extends Component {
             this.setState({ dataList : data })
         } else {
             const filteredResult = Array.from(data).filter((data)=>{
-                return filters.brand.indexOf(data.id) !== 3
+                return filters.brand.indexOf(data.id) !== -1
             })
             this.setState({ dataList:filteredResult })
         }
@@ -67,6 +68,7 @@ class RecentCard extends Component {
 
     return (
       <>
+        
         <BrandFilter
           handleBrandFilters = {filters => handleBrandFilters(filters, "brand")}
         />

@@ -41,16 +41,15 @@ class BrandFilter extends Component {
         const brand = getBrand(data)
 
         const CheckBoxList = () => brand.map((value, index)=>
-                <div key={index}>
-                    <span>{value}</span>
-                    <input
-                        type="checkbox"
-                        onChange={()=>handleToggle(value)}
-                        checked={this.state.checked.indexOf(value) !== -1 }
-                        value={value}
-                    />
-                </div>
-                
+            <div key={index}>
+                <span>{value}</span>
+                <input
+                    type="checkbox"
+                    onChange={()=>handleToggle(value)}
+                    checked={this.state.checked.indexOf(value) !== -1 }
+                    value={value}
+                />
+            </div>    
         );
 
         return (
