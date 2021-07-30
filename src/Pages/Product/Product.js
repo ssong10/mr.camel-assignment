@@ -2,28 +2,70 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from 'Components/button';
 import {moneyFormat} from 'utils/format';
+import {unInterestLocalStorage} from 'utils/localStorage';
+import products from './product.json';
 
 class Product extends React.Component{
-    render() {
-        const {title,brand,price} = this.props.location;
+    componentDidMount() {
+        const {history} = this.props; 
+        const {state} = this.props.location;
 
-        return (
-            <Container>
-                <Title>{title}</Title>
-                <Brand>{brand}</Brand>
-                <Row>
-                    <span>판매가 : </span>
-                    <div>
-                        <Price>{moneyFormat(price)}</Price><span>원</span>
-                    </div>
-                </Row>
-                <Row>
-                    <Button>랜덤 상품 보기</Button>
-                    <Button>관심 없음</Button>
-                </Row>
-                {/* <Link to='/recentList'>최근조회이력</Link> */}
-            </Container>
-        )
+        if (!state || unInterestLocalStorage.includes(state.id)) {
+            history.goBack();
+        }
+    }
+
+    showRandomProduct = ()=> {
+        const {history} = this.props;
+
+        const unInterestIds = unInterestLocalStorage.list.map(item=> item.id);
+        const filterProduct = products.filter((item,id)=> !unInterestIds.includes(id));
+
+        const randomId = Math.floor(Math.random()*filterProduct.length);
+        const nextProduct = filterProduct[randomId];
+
+        history.push({
+            path:'/product',
+            state : {id:randomId, ...nextProduct},
+        });
+    }
+
+    addUnInterest = ()=> {
+        const {id} = this.props.location.state;
+
+        unInterestLocalStorage.push({id,time:Date.now()});
+
+        this.showRandomProduct();
+    }
+
+    render() {
+        const {state} = this.props.location;
+
+        if (state) {
+            const {title,brand,price} = state;
+
+            return (
+                <Container>
+                    <Title>{title}</Title>
+                    <Brand>{brand}</Brand>
+                    <Row>
+                        <span>판매가 : </span>
+                        <div>
+                            <Price>{moneyFormat(price)}</Price><span>원</span>
+                        </div>
+                    </Row>
+                    <Row>
+                        <Button onClick={this.showRandomProduct}>랜덤 상품 보기</Button>
+                        <Button onClick={this.addUnInterest}>관심 없음</Button>
+                    </Row>
+
+                    {/* <Link to='/recentList'>최근조회이력</Link> */}
+                </Container>
+            )
+
+        }
+        else return null;
+
     }
 }
 
