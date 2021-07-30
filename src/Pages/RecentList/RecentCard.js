@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import data from './data.json'
 import BrandFilter from './BrandFilter';
 import styled from 'styled-components';
-
 
 const CardContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
 `;
-
 const Card = styled.div`
     border : 0.5px solid black;
     display: flex;
@@ -18,62 +15,44 @@ const Card = styled.div`
     margin-bottom:10px;
     width: 250px;
     height: 250px;
-
 `;
-
 class RecentCard extends Component {
-    state= {
-      dataList : data,
-      filtering : { brand:[] }
-    }
-    
-    render() {
+  state= {
+    // defaultItems : [100],
+    // recentList : [{id:1,time:4},{id:2,time:12},{id:4,time:20},{id:20,time:3}],
+    filtering : [],
+    baseItem: this.filterItem(),
+  }
+  filterItem() {
+    const filteredItem = this.props.recentList.map(({id}) => {
+      return this.props.defaultItems[id]
+    })
+    return filteredItem
+  }
 
-      const handleBrandFilters = (filters, category) => {
-        const newFilters = {...this.state.filtering}
-        newFilters[category] = filters
-        if(category === "brand") {
-            showFilterResults(newFilters)
-            this.setState({ filtering : newFilters }
-              )
-        }
-        if(category === "id"){
-            HideFilterResults(newFilters)
-          this.setState({ filtering : newFilters }
-            )
-        }
+  render() {
+    const { baseItem,filtering } = this.state
+    const handleBrandFilters = (filters) => {
+      this.setState({filtering: filters})
     }
-
-    const showFilterResults = (filters) => {
-      if(filters.brand.length === 0) {
-          this.setState({ dataList : data })
-      } else {
-          const filteredResult = Array.from(data).filter((data)=>{
-              return filters.brand.indexOf(data.brand) !== -1
-          })
-          this.setState({ dataList:filteredResult })
+   
+    const showFilterResults = () => {
+      if (filtering.length === 0){
+        return baseItem
       }
+      const filteredResult = baseItem.filter((data)=>{
+        return filtering.indexOf(data.brand) !== -1
+      })
+      return filteredResult
     }
-
-    const HideFilterResults = (filters) => {
-        if(filters.brand.length === 0) {
-            this.setState({ dataList : data })
-        } else {
-            const filteredResult = Array.from(data).filter((data)=>{
-                return filters.brand.indexOf(data.id) !== -1
-            })
-            this.setState({ dataList:filteredResult })
-        }
-      }
-
+   
     return (
       <>
-        
         <BrandFilter
-          handleBrandFilters = {filters => handleBrandFilters(filters, "brand")}
+          handleBrandFilters = {filters => handleBrandFilters(filters)}
         />
         <CardContainer>
-          {this.state.dataList.map((c,index) => (
+          {showFilterResults().map((c,index) => (
             <Card key={index}>
               {c.title}
               {c.price}
@@ -85,5 +64,4 @@ class RecentCard extends Component {
     )
   }
 }
-
 export default RecentCard;
