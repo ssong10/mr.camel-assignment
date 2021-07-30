@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component{
     render() {
-        const {title,brand,price} = this.props;
+        const {id,title,brand,price} = this.props;
 
         return (
             <div>
                 <Link to={{
                     pathname : '/product',
-                    title, brand, price
+                    id, title, brand, price
                 }}>
                     {title}
                 </Link>
