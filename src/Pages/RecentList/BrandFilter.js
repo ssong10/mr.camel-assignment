@@ -29,13 +29,12 @@ class BrandFilter extends Component {
         }
 
         const getBrand = (data) =>{
-            const brands = [];
-            data.map((product) => {
-                if(brands.indexOf(product.brand) === -1) {
-                    brands.push(product.brand)
+            const brands = new Set();
+            data.forEach((product) => {
+                brands.add(product.brand)
                 }
-            })
-            return brands;
+            )
+            return [...brands];
         }
 
         const brand = getBrand(INITIALDATA)
