@@ -1,6 +1,6 @@
 export function moneyFormat(price) {
     if (isNaN(Number(price))) { 
-        return NaN;
+        return;
     }
 
     let result = '';
