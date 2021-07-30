@@ -19,14 +19,19 @@ class Product extends React.Component{
         const {history} = this.props;
 
         const unInterestIds = unInterestLocalStorage.list.map(item=> item.id);
-        const filterProduct = products.filter((item,id)=> !unInterestIds.includes(id));
+        const filterProduct = products.filter((item,id)=> !unInterestIds.includes(id)); // id 수정
 
-        const randomId = Math.floor(Math.random()*filterProduct.length);
-        const nextProduct = filterProduct[randomId];
+        if (filterProduct.length === 0) {
+            alert('더 이상 없습니다.');
+            history.push('/');
+        }
+
+        const randomIndex = Math.floor(Math.random()*filterProduct.length);
+        const nextProduct = filterProduct[randomIndex]; 
 
         history.push({
             path:'/product',
-            state : {id:randomId, ...nextProduct},
+            state : {id:randomIndex, ...nextProduct}, // id 수정
         });
     }
 
