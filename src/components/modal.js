@@ -11,6 +11,7 @@ const ModalWrap = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   justify-content : center;
   align-items:center;
+  z-index: 100;
 `
 
 const Container = styled.div`
