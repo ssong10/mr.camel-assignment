@@ -40,7 +40,7 @@ class RecentList extends React.Component{
             <div>
                 <RecentCard
                     defaultItems={this.state.defaultItems}
-
+                    recentList={this.state.recentList}
                 />
                 <Button onClick={this.toggleModal}>정렬</Button>
                 <div>
