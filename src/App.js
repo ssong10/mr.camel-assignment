@@ -1,6 +1,6 @@
 import React from 'react';
 import Routes from 'Routes/Routes';
-import Header from 'components/header'
+import Header from 'Components/header';
 function App() {
   return (
     <div className="App">
