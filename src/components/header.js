@@ -13,7 +13,7 @@ const HeaderWrap = styled.div`
   align-items: center;
   border-bottom : 1px solid rgba(0,0,0,.2);
   padding: 8px 0px;
-  z-index: 1000;
+  z-index: 10;
   background-color: #f9f9f9;
 `
 const RecentListLink = styled(Link)`
