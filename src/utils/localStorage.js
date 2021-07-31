@@ -59,7 +59,15 @@ export class ArraylocalStorage{
         return -1;
     }
 
-   
+    set item(data) {
+        if (!Array.isArray(data)) {
+            console.error('Array only');
+            return;
+        }
+
+        this.list = data;
+        setItem(this.key, this.list);
+    }
 }
 
 export const unInterestLocalStorage = new ArraylocalStorage(UNINTEREST_KEY);
