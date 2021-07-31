@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import { timeFormat } from 'utils/format'
 
 const CardContainer = styled.div`
   display: flex;
@@ -34,24 +35,18 @@ const Brand = styled.div`
 class RecentCard extends Component {
   render() {
     const { showItem } = this.props;
-    const { id, title, brand, price } = this.props;
-
     return (
       <>
         <CardContainer>
           {showItem.map((c,index) => (
             <Card key={index} to={{
               pathname: '/product',
-              id,
-              title,
-              brand,
-              price
+              state: c
             }}>
               <Brand>{c.brand}</Brand>
               <Title>{c.title}</Title>
               <Price>{c.price}원</Price>
-              <div>id:{c.id}</div>
-              <div>time:{c.time}</div>
+              <div>{timeFormat(c.time)}</div>
             </Card>
           ))}
         </CardContainer>
