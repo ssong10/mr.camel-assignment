@@ -23,22 +23,17 @@ const Footer = styled.div`
   display:flex;
   justify-content:space-around
 `
-class RecentList extends React.Component{
-  constructor() {
-    super()
-    this.sortItem = this.sortItem.bind(this)
-    this.setSortType = this.setSortType.bind(this)
-  }
+class SortModal extends React.Component{
   state = {
-    sortType : 'recent'
+    type : 'recent'
   }
-  setSortType(e) {
-    this.setState({sortType:e.target.value})
+  setType(type) {
+    this.setState({sortType:type})
   }
   sortItem(e) {
     e.preventDefault()
     if (this.state.sortType) {
-      this.props.sortItem(this.state.sortType)
+      this.props.setSortType(this.state.sortType)
       this.props.toggle()
     } else {
       alert('정렬 기준을 선택해 주세요')
@@ -52,19 +47,19 @@ class RecentList extends React.Component{
         toggle={this.props.toggle}
       >
         <FormWrap
-          onSubmit={this.sortItem}
+          onSubmit={e=>this.sortItem(e)}
         >
           <Body>
             <Label>
               <input type="radio" value="recent"
-                onChange={this.setSortType}
+                onChange={e=>this.setType(e.target.value)}
                 checked={this.state.sortType==='recent'}
               />
               최근조회순
             </Label>
             <Label>
               <input type="radio" value="price"
-                onChange={this.setSortType}
+                onChange={e=>this.setType(e.target.value)}
                 checked={this.state.sortType==='price'}/>
               가격순
             </Label>
@@ -88,4 +83,4 @@ class RecentList extends React.Component{
     )
   }
 }
-export default RecentList
+export default SortModal
