@@ -90,7 +90,6 @@ class RecentList extends React.Component{
         if (type === 'recent') {
             sortedItem = this.sortByRecent()
         }
-        console.log('sorted',sortedItem)
         this.setState({baseItem:sortedItem})
     }
     
@@ -111,6 +110,7 @@ class RecentList extends React.Component{
 
     }
     render() {
+        const showItem = this.showItems(this.state.baseItem,this.state.filters)
         return (
             <div>
                 <BrandFilter
@@ -119,6 +119,7 @@ class RecentList extends React.Component{
                 />
                 <Row>
                     <Button onClick={this.toggleModal}>정렬</Button>
+                    <span>{showItem.length} 개의 제품</span>
                     <label>
                         <input
                             type="checkbox"
@@ -129,7 +130,7 @@ class RecentList extends React.Component{
                     </label>
                 </Row>
                 <RecentCard
-                    showItem={this.showItems(this.state.baseItem,this.state.filters)}
+                    showItem={showItem}
                 />
                 <div>
                 <SortModal
