@@ -25,20 +25,6 @@ class Home extends React.Component {
         {/* <Link to="/recentList">최근조회이력</Link> */}
         <CardList>
           {cards
-            .filter(data => {
-              return data;
-              // const { brand } = data;
-              // console.log(notInclude)
-              //const f = notInclude.list.find(string => string === brand);
-              // if (f > '') {
-              //   // match
-              //   return false;
-              // } else {
-              //   // not match
-              //   return true;
-              // }
-            })
-
             .map((data, index) => (
               <Card key={index} item={data} />
             ))}
