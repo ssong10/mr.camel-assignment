@@ -45,6 +45,7 @@ class Product extends React.Component {
     const { id } = this.state.item;
 
     if (!this.state.item || unInterestLocalStorage.includes(id)) {
+      alert('관심 없는 상품입니다.');
       history.goBack();
       return;
     }
