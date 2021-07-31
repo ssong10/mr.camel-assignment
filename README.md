@@ -20,7 +20,7 @@ filter 기능을 사용하여 관심없는 상품 처리하는 코드 작성
 
 상품 조회 이력 - 이승열, 강동휘
 
-## image: 
+## image
 
 최근 목록 조회: ![최근목록조회](https://ifh.cc/g/fAFqTO.jpg)
 
