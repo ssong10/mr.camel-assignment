@@ -4,6 +4,7 @@ import Button from 'Components/button';
 import { moneyFormat } from 'utils/format';
 import { unInterestLocalStorage, recentShowLocalStorage } from 'utils/localStorage';
 import { fetchProduct } from 'utils/api';
+import { sliceBeforeToday } from 'utils/time';
 
 const Container = styled.div`
     display : flex;
@@ -41,6 +42,8 @@ class Product extends React.Component {
   }
 
   componentDidMount() {
+    recentShowLocalStorage.items = sliceBeforeToday(recentShowLocalStorage.items)
+    unInterestLocalStorage.items = sliceBeforeToday(unInterestLocalStorage.items)
     const { history } = this.props;
     const { id } = this.state.item;
 

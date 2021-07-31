@@ -10,18 +10,33 @@
 
 -**협업 도구**: slack, notion, github, visual studio code
 
+---
 
-### 구현사항 : 
+## 구현사항 
 
-메인페이지 -박세리 
-리스트페이지 및 레이아웃 구현
+**박세리** : 메인페이지, 리스트페이지 및 레이아웃 구현, filter로 관심없는 상품 처리하는 기능 구현
 
-상세페이지 -장윤호 
-filter 기능을 사용하여 관심없는 상품 처리하는 코드 작성
+**장윤호** : 제품 상세 페이지 및 상세 기능 구현, Utils 구현 (local storage, api, format) 
 
-상품 조회 이력 - 이승열, 강동휘
+**이승열** : blah blah blah
 
-## image
+**강동휘** : 상품 조회 이력 목록 페이지에서 브랜드 별 필터 기능, 별도 페이징 처리 없이 전체 로드
+
+---
+
+## 설치 guide 
+
+__git 과 npm을 사용하여 설치해주세요__
+
+> git clone https://github.com/ssong10/mr.camel-assignment.git
+
+> npm install
+
+> npm start
+
+---
+
+## Image
 
 메인페이지 : ![메인페이지](https://ifh.cc/g/G4u5mD.png)
 
