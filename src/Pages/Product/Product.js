@@ -69,7 +69,6 @@ class Product extends React.Component {
     const { history } = this.props;
 
     const filterProduct = this.products.filter((item) => !unInterestLocalStorage.includes(item.id));
-    console.log(filterProduct.length);
 
     if (filterProduct.length === 0) {
       alert('더 이상 없습니다.');
