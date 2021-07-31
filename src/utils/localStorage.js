@@ -1,5 +1,3 @@
-import { sliceBeforeToday } from 'utils/time';
-
 const CORRECT_TYPE = ['string', 'number', 'boolean', 'null', 'object', 'array'];
 
 const UNINTEREST_KEY = 'unInterest-list';
@@ -29,10 +27,8 @@ export class ArraylocalStorage {
   constructor(key) {
     const loadedData = getItem(key) || [];
 
-    const todayList = sliceBeforeToday(loadedData);
-
     this.key = key;
-    this.items = todayList;
+    this.items = loadedData;
   }
 
   set items(data) {
