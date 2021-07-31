@@ -31,10 +31,10 @@ const Brand = styled.div`
   
 `;
 
-
 class RecentCard extends Component {
   render() {
-    const { showItem } = this.props
+    const { showItem } = this.props;
+    const { id, title, brand, price } = this.props;
 
     return (
       <>
@@ -42,6 +42,10 @@ class RecentCard extends Component {
           {showItem.map((c,index) => (
             <Card key={index} to={{
               pathname: '/product',
+              id,
+              title,
+              brand,
+              price
             }}>
               <Brand>{c.brand}</Brand>
               <Title>{c.title}</Title>
