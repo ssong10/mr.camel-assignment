@@ -6,10 +6,8 @@ import { unInterestLocalStorage } from 'utils/localStorage';
 
 const CardContainer = styled.div`
   background-color: #f7f9fa;
-  
   width: 50%;
   margin: 0 auto;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
 `;
 const Card = styled(Link)`
   background-color: white;
