@@ -1,17 +1,23 @@
-import React from 'react'
-import RecentCard from './RecentCard'
-import { fetchProduct } from 'utils/api'
-import Button from '../../Components/button'
-import SortModal from './sortModal'
-import BrandFilter from './BrandFilter'
-import { recentShowLocalStorage } from 'utils/localStorage'
+import React from 'react';
+import Button from 'Components/button'
 import styled from 'styled-components'
 
-const ModalButton = styled(Button)`
-    margin-left:26%;
-`;
+import RecentCard from './RecentCard';
+import SortModal from './sortModal'
+import BrandFilter from './BrandFilter';
 
-// 아마 storage나 props 에서 받아올 데이터
+import { recentShowLocalStorage, unInterestLocalStorage } from 'utils/localStorage'
+import { sliceBeforeToday } from 'utils/time';
+import { fetchProduct } from 'utils/api'
+
+const Row = styled.div`
+    display:flex;
+    width :50%;
+    margin:0 auto;
+    justify-content:space-between;
+    align-items:center;
+`
+
 class RecentList extends React.Component{
     state = {
         defaultItems : [],
@@ -20,31 +26,37 @@ class RecentList extends React.Component{
         filters: [],    
         baseItem: [],
         sortType: 'recent',
+        hideUnInterest: false,
     }
-
     async initialData() {
         const defaultItems = await fetchProduct()
         const baseItem = this.filterItem(defaultItems,recentShowLocalStorage.items).reverse();
         this.setState({defaultItems,baseItem})
     }
     componentDidMount() {
+        recentShowLocalStorage.items = sliceBeforeToday(recentShowLocalStorage.items)
+        unInterestLocalStorage.items = sliceBeforeToday(unInterestLocalStorage.items)
         this.initialData()
     }
-
+    
     // only baseItem setting
     // Item data + { time } -> for order
     filterItem(defaultItems,recentList) {
         const filteredItem = recentList.map((item) => {
-        const { time , id } = item
-        return {
-            ...defaultItems[id-1],
-            id,
-            time
-        }
-      })
-      return filteredItem
+            const { time , id } = item
+            return {
+                ...defaultItems[id-1],
+                id,
+                time
+            }
+        })
+        return filteredItem
     }
     
+    // Hide UnInterest
+    toggleHideUnInterest() {
+        this.setState({hideUnInterest:!this.state.hideUnInterest})
+    }
     // filtering
     // item -> filtered item
     filtering(items, filters) {
@@ -56,8 +68,12 @@ class RecentList extends React.Component{
         } else {
             filteredItem = items
         }
-        console.log('filter',filters,filteredItem)
-        return filteredItem
+        if (this.state.hideUnInterest) {
+            const unInterestLocalSet = new Set(unInterestLocalStorage.items.map(item=>item.id))
+            return filteredItem.filter((item)=> !unInterestLocalSet.has(item.id))
+        } else {
+            return filteredItem
+        }
     }
     
     // modal
@@ -97,13 +113,21 @@ class RecentList extends React.Component{
     render() {
         return (
             <div>
-                <div>
-                    <BrandFilter
-                        defaultItems={this.state.defaultItems}
-                        handleBrandFilters={filters => this.setState({filters})}
-                    />
-                    <ModalButton onClick={this.toggleModal}>정렬</ModalButton>
-                </div>
+                <BrandFilter
+                    defaultItems={this.state.defaultItems}
+                    handleBrandFilters={filters => this.setState({filters})}
+                />
+                <Row>
+                    <Button onClick={this.toggleModal}>정렬</Button>
+                    <label>
+                        <input
+                            type="checkbox"
+                            value={this.state.hideUnInterest}
+                            onChange={(e) => this.toggleHideUnInterest(e)}
+                        >
+                        </input>관심없음 숨기기
+                    </label>
+                </Row>
                 <RecentCard
                     showItem={this.showItems(this.state.baseItem,this.state.filters)}
                 />
