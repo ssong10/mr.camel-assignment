@@ -2,22 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from 'Components/button';
 import {moneyFormat} from 'utils/format';
-import {unInterestLocalStorage} from 'utils/localStorage';
+import {unInterestLocalStorage,recentShowLocalStorage} from 'utils/localStorage';
 import products from './product.json';
 
 class Product extends React.Component{
     constructor(props) {
         super(props);
-        this.state = this.props.location.state;
+
+        this.state = this.props.location.state ?? {};
     }
 
     componentDidMount() {
-        const {history} = this.props; 
+        const {history} = this.props;
         const {id} = this.state;
 
-        if (!id || unInterestLocalStorage.includes(id)) {
+        if ( id === undefined || unInterestLocalStorage.includes(this.state.id)) {
             history.goBack();
+            return;
         }
+
+        recentShowLocalStorage.push({id,time:Date.now()});
     }
 
     showRandomProduct = ()=> {
@@ -34,13 +38,15 @@ class Product extends React.Component{
         const randomIndex = Math.floor(Math.random()*filterProduct.length);
         const nextProduct = filterProduct[randomIndex]; 
 
+        recentShowLocalStorage.push({id:randomIndex,time:Date.now()}); // 임시 : id 수정 필
+
         this.setState({
             id:randomIndex, ...nextProduct // 임시 : id 수정 필
         });
     }
 
     addUnInterest = ()=> {
-        const {id} = this.props.location.state;
+        const {id} = this.state;
 
         unInterestLocalStorage.push({id,time:Date.now()});
 
@@ -49,8 +55,8 @@ class Product extends React.Component{
 
     render() {
         const {id,title,brand,price} = this.state;
-
-        if (!id) return null;
+        
+        if(id === undefined) return null;
 
         return (
             <Container>
