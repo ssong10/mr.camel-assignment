@@ -32,6 +32,8 @@ __git 과 npm을 사용하여 설치해주세요__
 
 > npm install
 
+> npm start
+
 ---
 
 ## Image
