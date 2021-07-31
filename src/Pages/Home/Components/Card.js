@@ -3,17 +3,14 @@ import { Link } from 'react-router-dom';
 
 class Card extends React.Component {
   render() {
-    const { id, title, brand, price } = this.props.item;
+    const { title } = this.props.item;
 
     return (
       <div>
         <Link
           to={{
             pathname: '/product',
-            id,
-            title,
-            brand,
-            price,
+            state: this.props.item,
           }}
         >
           {title}
