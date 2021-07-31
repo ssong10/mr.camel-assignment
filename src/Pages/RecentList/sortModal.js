@@ -24,25 +24,16 @@ const Footer = styled.div`
   justify-content:space-around
 `
 class RecentList extends React.Component{
-  constructor() {
-    super()
-    this.sortItem = this.sortItem.bind(this)
-    this.setSortType = this.setSortType.bind(this)
-  }
   state = {
-    sortType : 'recent'
+    type : 'recent'
   }
-  setSortType(e) {
-    this.setState({sortType:e.target.value})
+  setType(value) {
+    this.setState({type:value})
   }
   sortItem(e) {
     e.preventDefault()
-    if (this.state.sortType) {
-      this.props.sortItem(this.state.sortType)
-      this.props.toggle()
-    } else {
-      alert('정렬 기준을 선택해 주세요')
-    }
+    this.props.setSortType(this.state.type)
+    this.props.toggle()
   }
   render() {
     return (
@@ -52,26 +43,25 @@ class RecentList extends React.Component{
         toggle={this.props.toggle}
       >
         <FormWrap
-          onSubmit={this.sortItem}
+          onSubmit={e => this.sortItem(e)}
         >
           <Body>
             <Label>
               <input type="radio" value="recent"
-                onChange={this.setSortType}
-                checked={this.state.sortType==='recent'}
+                onChange={e => this.setType(e.target.value)}
+                checked={this.state.type==='recent'}
               />
               최근조회순
             </Label>
             <Label>
               <input type="radio" value="price"
-                onChange={this.setSortType}
-                checked={this.state.sortType==='price'}/>
+                onChange={e => this.setType(e.target.value)}
+                checked={this.state.type==='price'}/>
               가격순
             </Label>
           </Body>
           <Footer>
             <Button
-              disabled={!this.state.sortType} 
               type="submit"
             >
               정렬

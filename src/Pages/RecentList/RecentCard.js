@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BrandFilter from './BrandFilter';
 import styled from 'styled-components';
 
 const CardContainer = styled.div`
@@ -17,46 +16,18 @@ const Card = styled.div`
     height: 250px;
 `;
 class RecentCard extends Component {
-  state= {
-    // defaultItems : [100],
-    // recentList : [{id:1,time:4},{id:2,time:12},{id:4,time:20},{id:20,time:3}],
-    filtering : [],
-    baseItem: this.filterItem(),
-  }
-  filterItem() {
-    const filteredItem = this.props.recentList.map(({id}) => {
-      return this.props.defaultItems[id]
-    })
-    return filteredItem
-  }
-
   render() {
-    const { baseItem,filtering } = this.state
-    const handleBrandFilters = (filters) => {
-      this.setState({filtering: filters})
-    }
-   
-    const showFilterResults = () => {
-      if (filtering.length === 0){
-        return baseItem
-      }
-      const filteredResult = baseItem.filter((data)=>{
-        return filtering.indexOf(data.brand) !== -1
-      })
-      return filteredResult
-    }
-   
+    const { showItem } = this.props
     return (
       <>
-        <BrandFilter
-          handleBrandFilters = {filters => handleBrandFilters(filters)}
-        />
         <CardContainer>
-          {showFilterResults().map((c,index) => (
+          {showItem.map((c,index) => (
             <Card key={index}>
-              {c.title}
-              {c.price}
-              {c.brand}
+              <div>{c.title}</div>
+              <div>{c.price}원</div>
+              <div>{c.brand}</div>
+              <div>id:{c.id}</div>
+              <div>time:{c.time}</div>
             </Card>
           ))}
         </CardContainer>
