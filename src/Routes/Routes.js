@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from 'Pages/Home/Home';
 import Product from 'Pages/Product/Product';
 import RecentList from 'Pages/RecentList/RecentList';
-import Header from '../Components/header'
+import Header from '../Components/header';
 class Routes extends React.Component {
   render() {
     return (

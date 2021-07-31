@@ -65,7 +65,6 @@ export default Home;
 const CardList = styled.div`
   background-color: #f7f9fa;
   display: grid;
-  box-sizing: border-box;
   width: 80vw;
   margin: 0 auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -73,8 +72,8 @@ const CardList = styled.div`
 const Box = styled.div`
   background-color: white;
   border: 1px solid black;
-  //width: 80%;
-  margin: 10px 15px;
-  box-sizing: border-box;
+  margin: 15px;
   text-align: center;
+  border-radius: 10px;
+  padding: 10px;
 `;
