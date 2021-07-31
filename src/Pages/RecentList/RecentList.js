@@ -1,30 +1,41 @@
 import React from 'react';
 import RecentCard from './RecentCard';
-import INITIALDATA from '../../asset/data.json'
+import { fetchProduct } from 'utils/api'
 import Button from '../../Components/button'
 import SortModal from './sortModal'
 import BrandFilter from './BrandFilter';
+//import { recentShowLocalStorage } from 'utils/localStorage'
 
 // 아마 storage나 props 에서 받아올 데이터
-const RECENT_LIST = [{id:1,time:4},{id:2,time:12},{id:4,time:20},{id:20,time:3}]
+const RECENT_LIST = [{id:1,time:1627716047105},{id:2,time:1627720947105},{id:4,time:1627723947105},{id:20,time:1627726547105}]
 
 class RecentList extends React.Component{
     state = {
-        defaultItems : INITIALDATA,
+        defaultItems : [],
         recentList : RECENT_LIST,
         modal:false,
         filters: [],    
-        baseItem: this.filterItem(RECENT_LIST),
+        baseItem: [],
         sortType: 'recent',
+    }
+
+    async initialData() {
+        const defaultItems = await fetchProduct()
+        const baseItem = this.filterItem(defaultItems,RECENT_LIST)
+        this.setState({defaultItems,baseItem})
+    }
+    componentDidMount() {
+        this.initialData()
     }
 
     // only baseItem setting
     // Item data + { time } -> for order
-    filterItem(recentList) {
-      const filteredItem = recentList.map((item) => {
+    filterItem(defaultItems,recentList) {
+        console.log(defaultItems,recentList)
+        const filteredItem = recentList.map((item) => {
         const { time , id } = item
         return {
-            ...INITIALDATA[id],
+            ...defaultItems[id-1],
             id,
             time
         }
@@ -85,6 +96,7 @@ class RecentList extends React.Component{
         return (
             <div>
                 <BrandFilter
+                    defaultItems={this.state.defaultItems}
                     handleBrandFilters={filters => this.setState({filters})}
                 />
                 <RecentCard

@@ -1,5 +1,4 @@
 import { React, Component } from "react";
-import INITIALDATA from '../../asset/data.json'
 import styled from 'styled-components';
 
 const Form = styled.form`
@@ -42,7 +41,7 @@ class BrandFilter extends Component {
             return [...brands];
         }
 
-        const brand = getBrand(INITIALDATA)
+        const brand = getBrand(this.props.defaultItems)
 
         const CheckBoxList = () => brand.map((value, index)=>
             <CheckBox key={index}>
