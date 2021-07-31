@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
-import { timeFormat } from 'utils/format'
+import { timeFormat, moneyFormat } from 'utils/format';
+import { unInterestLocalStorage } from 'utils/localStorage';
 
 const CardContainer = styled.div`
   background-color: #f7f9fa;
@@ -35,19 +36,26 @@ const Brand = styled.div`
 `;
 
 class RecentCard extends Component {
+  onClick = (event,id)=> {
+    if (unInterestLocalStorage.includes(id)) {
+      event.preventDefault();
+      alert('관심 없는 상품입니다.');
+    }
+  }
+
   render() {
     const { showItem } = this.props;
     return (
       <>
         <CardContainer>
           {showItem.map((c,index) => (
-            <Card key={index} to={{
+            <Card key={index} onClick={event=>this.onClick(event,c.id)} to={{
               pathname: '/product',
               state: c
             }}>
               <Brand>{c.brand}</Brand>
               <Title>{c.title}</Title>
-              <Price>{c.price}원</Price>
+              <Price>{moneyFormat(c.price)}원</Price>
               <div>{timeFormat(c.time)}</div>
             </Card>
           ))}
