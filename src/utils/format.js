@@ -1,3 +1,17 @@
+export function timeFormat(time) {
+  const date = new Date(time)
+  const y = date.getFullYear()
+  const m = date.getMonth() + 1
+  const d = date.getDate()
+  const hour = date.getHours()
+  const min = date.getMinutes()
+  const sec = date.getSeconds()
+  return `${y}.${F(m)}.${F(d)} ${F(hour)}:${F(min)}:${F(sec)}`
+}
+const F = (t) => {
+  return t < 10 ? '0'+t : t
+}
+
 export function moneyFormat(price) {
   if (isNaN(Number(price))) {
     return;
