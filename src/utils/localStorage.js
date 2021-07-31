@@ -8,13 +8,10 @@ export function setItem(key, data) {
     console.error('incorrect data type');
     return null;
   }
-
   localStorage.setItem(key, JSON.stringify(data));
 }
-
 export function getItem(key) {
   let loadedData = localStorage.getItem(key);
-
   if (loadedData === null) {
     console.error('Non existent key');
     return null;
@@ -26,11 +23,9 @@ export function getItem(key) {
 export class ArraylocalStorage {
   constructor(key) {
     const loadedData = getItem(key);
-
     if (!Array.isArray(loadedData)) {
       setItem(key, []);
     }
-
     this.key = key;
     this.list = loadedData;
   }
@@ -40,7 +35,6 @@ export class ArraylocalStorage {
       const index = this.indexOf(data.id);
       this.list.splice(index, 1);
     }
-
     this.list.push(data);
     setItem(this.key, this.list);
   }
@@ -52,10 +46,8 @@ export class ArraylocalStorage {
   indexOf(id) {
     for (const index in this.list) {
       const item = this.list[index];
-
       if (item.id === id) return index;
     }
-
     return -1;
   }
 
@@ -64,11 +56,9 @@ export class ArraylocalStorage {
       console.error('not Array');
       return;
     }
-
     this.list = data;
     setItem(this.key, this.list);
   }
 }
-
 export const unInterestLocalStorage = new ArraylocalStorage(UNINTEREST_KEY);
 export const recentShowLocalStorage = new ArraylocalStorage(RECENTSHOW_KEY);
