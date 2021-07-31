@@ -14,7 +14,7 @@
 
 ## 구현사항 
 
-**이승열** : blah blah blah
+**이승열** : 상품 조회 목록 및 상세 기능 구현,  Utils 구현 (format, time), 공용 컴포넌트 작성 (button, modal, header)
 
 **박세리** : 메인페이지, 리스트페이지 및 레이아웃 구현, filter로 관심없는 상품 처리 기능 구현
 
