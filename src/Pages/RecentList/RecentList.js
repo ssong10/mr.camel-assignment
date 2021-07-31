@@ -4,7 +4,7 @@ import { fetchProduct } from 'utils/api'
 import Button from '../../Components/button'
 import SortModal from './sortModal'
 import BrandFilter from './BrandFilter';
-import { recentShowLocalStorage } from 'utils/localStorage'
+import { recentShowLocalStorage, unInterestLocalStorage } from 'utils/localStorage'
 
 
 
@@ -17,8 +17,8 @@ class RecentList extends React.Component{
         filters: [],    
         baseItem: [],
         sortType: 'recent',
+        hideUnInterest: false,
     }
-
     async initialData() {
         const defaultItems = await fetchProduct()
         const baseItem = this.filterItem(defaultItems,recentShowLocalStorage.items).reverse();
@@ -27,21 +27,25 @@ class RecentList extends React.Component{
     componentDidMount() {
         this.initialData()
     }
-
+    
     // only baseItem setting
     // Item data + { time } -> for order
     filterItem(defaultItems,recentList) {
         const filteredItem = recentList.map((item) => {
-        const { time , id } = item
-        return {
-            ...defaultItems[id-1],
-            id,
-            time
-        }
-      })
-      return filteredItem
+            const { time , id } = item
+            return {
+                ...defaultItems[id-1],
+                id,
+                time
+            }
+        })
+        return filteredItem
     }
     
+    // Hide UnInterest
+    toggleHideUnInterest() {
+        this.setState({hideUnInterest:!this.state.hideUnInterest})
+    }
     // filtering
     // item -> filtered item
     filtering(items, filters) {
@@ -53,8 +57,12 @@ class RecentList extends React.Component{
         } else {
             filteredItem = items
         }
-        console.log('filter',filters,filteredItem)
-        return filteredItem
+        if (this.state.hideUnInterest) {
+            const unInterestLocalSet = new Set(unInterestLocalStorage.items.map(item=>item.id))
+            return filteredItem.filter((item)=> !unInterestLocalSet.has(item.id))
+        } else {
+            return filteredItem
+        }
     }
     
     // modal
@@ -99,6 +107,14 @@ class RecentList extends React.Component{
                     handleBrandFilters={filters => this.setState({filters})}
                 />
                 <Button onClick={this.toggleModal}>정렬</Button>
+                <label>
+                    <input
+                        type="checkbox"
+                        value={this.state.hideUnInterest}
+                        onChange={(e) => this.toggleHideUnInterest(e)}
+                    >
+                    </input>관심없음 숨기기
+                </label>
                 <RecentCard
                     showItem={this.showItems(this.state.baseItem,this.state.filters)}
                 />
