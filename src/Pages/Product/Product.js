@@ -1,82 +1,82 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'Components/button';
-import {moneyFormat} from 'utils/format';
-import {unInterestLocalStorage,recentShowLocalStorage} from 'utils/localStorage';
+import { moneyFormat } from 'utils/format';
+import { unInterestLocalStorage, recentShowLocalStorage } from 'utils/localStorage';
 import products from './product.json';
 
-class Product extends React.Component{
-    constructor(props) {
-        super(props);
+class Product extends React.Component {
+  constructor(props) {
+    super(props);
 
-        this.state = this.props.location.state ?? {};
+    this.state = this.props.location.state ?? {};
+  }
+
+  componentDidMount() {
+    const { history } = this.props;
+    const { id } = this.state;
+
+    if (id === undefined || unInterestLocalStorage.includes(this.state.id)) {
+      history.goBack();
+      return;
     }
 
-    componentDidMount() {
-        const {history} = this.props;
-        const {id} = this.state;
+    recentShowLocalStorage.push({ id, time: Date.now() });
+  }
 
-        if ( id === undefined || unInterestLocalStorage.includes(this.state.id)) {
-            history.goBack();
-            return;
-        }
+  showRandomProduct = () => {
+    const { history } = this.props;
 
-        recentShowLocalStorage.push({id,time:Date.now()});
+    const unInterestIds = unInterestLocalStorage.list.map(item => item.id);
+    const filterProduct = products.filter((item, id) => !unInterestIds.includes(id)); // 임시 : id 수정 필
+
+    if (filterProduct.length === 0) {
+      alert('더 이상 없습니다.');
+      history.push('/');
     }
 
-    showRandomProduct = ()=> {
-        const {history} = this.props;
+    const randomIndex = Math.floor(Math.random() * filterProduct.length);
+    const nextProduct = filterProduct[randomIndex];
 
-        const unInterestIds = unInterestLocalStorage.list.map(item=> item.id);
-        const filterProduct = products.filter((item,id)=> !unInterestIds.includes(id)); // 임시 : id 수정 필
+    recentShowLocalStorage.push({ id: randomIndex, time: Date.now() }); // 임시 : id 수정 필
 
-        if (filterProduct.length === 0) {
-            alert('더 이상 없습니다.');
-            history.push('/');
-        }
+    this.setState({
+      id: randomIndex, ...nextProduct // 임시 : id 수정 필
+    });
+  }
 
-        const randomIndex = Math.floor(Math.random()*filterProduct.length);
-        const nextProduct = filterProduct[randomIndex]; 
+  addUnInterest = () => {
+    const { id } = this.state;
 
-        recentShowLocalStorage.push({id:randomIndex,time:Date.now()}); // 임시 : id 수정 필
+    unInterestLocalStorage.push({ id, time: Date.now() });
 
-        this.setState({
-            id:randomIndex, ...nextProduct // 임시 : id 수정 필
-        });
-    }
+    this.showRandomProduct();
+  }
 
-    addUnInterest = ()=> {
-        const {id} = this.state;
+  render() {
+    const { id, title, brand, price } = this.state;
 
-        unInterestLocalStorage.push({id,time:Date.now()});
+    if (id === undefined) return null;
 
-        this.showRandomProduct();
-    }
+    return (
+      <Container>
+        <Title>{title}</Title>
+        <Brand>{brand}</Brand>
+        <Row>
+          <span>판매가 : </span>
+          <div>
+            <Price>{moneyFormat(price)}</Price><span>원</span>
+          </div>
+        </Row>
+        <Row>
+          <Button onClick={this.showRandomProduct}>랜덤 상품 보기</Button>
+          <Button onClick={this.addUnInterest}>관심 없음</Button>
+        </Row>
 
-    render() {
-        const {id,title,brand,price} = this.state;
-        
-        if(id === undefined) return null;
-
-        return (
-            <Container>
-                <Title>{title}</Title>
-                <Brand>{brand}</Brand>
-                <Row>
-                    <span>판매가 : </span>
-                    <div>
-                        <Price>{moneyFormat(price)}</Price><span>원</span>
-                    </div>
-                </Row>
-                <Row>
-                    <Button onClick={this.showRandomProduct}>랜덤 상품 보기</Button>
-                    <Button onClick={this.addUnInterest}>관심 없음</Button>
-                </Row>
-
-                {/* <Link to='/recentList'>최근조회이력</Link> */}
-            </Container>
-        )
-    }
+        {/* <Link to='/recentList'>최근조회이력</Link> */}
+      </Container>
+    )
+  }
 }
 
 const Container = styled.div`
