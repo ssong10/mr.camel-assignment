@@ -5,8 +5,11 @@ import Button from '../../Components/button'
 import SortModal from './sortModal'
 import BrandFilter from './BrandFilter';
 import { recentShowLocalStorage } from 'utils/localStorage'
+import styled from 'styled-components'
 
-
+const NavBox = styled.div`
+    display:flex;
+`;
 
 // 아마 storage나 props 에서 받아올 데이터
 class RecentList extends React.Component{
@@ -95,11 +98,13 @@ class RecentList extends React.Component{
     render() {
         return (
             <div>
-                <BrandFilter
-                    defaultItems={this.state.defaultItems}
-                    handleBrandFilters={filters => this.setState({filters})}
-                />
-                <Button onClick={this.toggleModal}>정렬</Button>
+                <NavBox>
+                    <BrandFilter
+                        defaultItems={this.state.defaultItems}
+                        handleBrandFilters={filters => this.setState({filters})}
+                    />
+                    <Button onClick={this.toggleModal}>정렬</Button>
+                </NavBox>
                 <RecentCard
                     showItem={this.showItems(this.state.baseItem,this.state.filters)}
                 />
