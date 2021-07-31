@@ -1,14 +1,23 @@
 import React from 'react';
+import Button from 'Components/button'
+import styled from 'styled-components'
+
 import RecentCard from './RecentCard';
-import { fetchProduct } from 'utils/api'
-import Button from '../../Components/button'
 import SortModal from './sortModal'
 import BrandFilter from './BrandFilter';
+
 import { recentShowLocalStorage, unInterestLocalStorage } from 'utils/localStorage'
+import { sliceBeforeToday } from 'utils/time';
+import { fetchProduct } from 'utils/api'
 
+const Row = styled.div`
+    display:flex;
+    width :50%;
+    margin:0 auto;
+    justify-content:space-between;
+    align-items:center;
+`
 
-
-// 아마 storage나 props 에서 받아올 데이터
 class RecentList extends React.Component{
     state = {
         defaultItems : [],
@@ -25,6 +34,8 @@ class RecentList extends React.Component{
         this.setState({defaultItems,baseItem})
     }
     componentDidMount() {
+        recentShowLocalStorage.items = sliceBeforeToday(recentShowLocalStorage.items)
+        unInterestLocalStorage.items = sliceBeforeToday(unInterestLocalStorage.items)
         this.initialData()
     }
     
@@ -106,15 +117,17 @@ class RecentList extends React.Component{
                     defaultItems={this.state.defaultItems}
                     handleBrandFilters={filters => this.setState({filters})}
                 />
-                <Button onClick={this.toggleModal}>정렬</Button>
-                <label>
-                    <input
-                        type="checkbox"
-                        value={this.state.hideUnInterest}
-                        onChange={(e) => this.toggleHideUnInterest(e)}
-                    >
-                    </input>관심없음 숨기기
-                </label>
+                <Row>
+                    <Button onClick={this.toggleModal}>정렬</Button>
+                    <label>
+                        <input
+                            type="checkbox"
+                            value={this.state.hideUnInterest}
+                            onChange={(e) => this.toggleHideUnInterest(e)}
+                        >
+                        </input>관심없음 숨기기
+                    </label>
+                </Row>
                 <RecentCard
                     showItem={this.showItems(this.state.baseItem,this.state.filters)}
                 />
