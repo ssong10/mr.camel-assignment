@@ -3,8 +3,12 @@ import styled from 'styled-components';
 
 const Form = styled.form`
     display:flex;
-    margin-left: calc((100% - (20% * 4)) / 4);
-    margin-top:30px;
+    background-color: white;
+    width: 50%;
+    margin:0 auto;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
 `;
 
 const CheckBox = styled.div`

@@ -4,18 +4,20 @@ import {Link} from 'react-router-dom';
 import { timeFormat } from 'utils/format'
 
 const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-top:30px;
+  background-color: #f7f9fa;
+  
+  width: 50%;
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 `;
 const Card = styled(Link)`
-  border : 0.5px solid black;
-  display: flex;
-  flex-direction: column;
-  margin-left: calc((100% - (20% * 4)) / 4);
-  margin-bottom:20px;
+  background-color: white;
+  border: 1px solid black;
+  margin: 15px;
+  display:block;
   text-align: center;
+  border-radius: 10px;
+  padding: 10px;
 `;
 const Title = styled.div`
   font-size:16px;
