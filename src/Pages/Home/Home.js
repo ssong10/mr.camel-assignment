@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../Home/Components/Card';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 // import { ArraylocalStorage } from '../../utils/localStorage';
 import styled from 'styled-components';
 
@@ -32,7 +32,7 @@ class Home extends React.Component {
 
     return (
       <div>
-        <Link to="/recentList">최근조회이력</Link>
+        {/* <Link to="/recentList">최근조회이력</Link> */}
         <CardList>
           {cards
             .filter(data => {
