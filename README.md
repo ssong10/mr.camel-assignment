@@ -26,11 +26,12 @@
 
 ## CRA 설치 방법 guide 
 
-> npm install -g 
+> git clone https://github.com/ssong10/mr.camel-assignment.git
+> npm install
 
 ---
 
-## image
+## Image
 
 메인페이지 : ![메인페이지](https://ifh.cc/g/G4u5mD.png)
 
