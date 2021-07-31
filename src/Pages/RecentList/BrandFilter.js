@@ -5,7 +5,12 @@ import styled from 'styled-components';
 const Form = styled.form`
     display:flex;
     margin-left: calc((100% - (20% * 4)) / 4);
+    margin-top:30px;
 `;
+
+const CheckBox = styled.div`
+    padding-left:10px;
+`
 
 class BrandFilter extends Component {
     state={
@@ -40,7 +45,7 @@ class BrandFilter extends Component {
         const brand = getBrand(INITIALDATA)
 
         const CheckBoxList = () => brand.map((value, index)=>
-            <div key={index}>
+            <CheckBox key={index}>
                 <span>{value}</span>
                 <input
                     type="checkbox"
@@ -48,12 +53,12 @@ class BrandFilter extends Component {
                     checked={this.state.checked.indexOf(value) !== -1 }
                     value={value}
                 />
-            </div>    
+            </CheckBox>    
         );
 
         return (
         <>
-           <Form>
+            <Form>
                 {CheckBoxList()}
             </Form>
         </>
