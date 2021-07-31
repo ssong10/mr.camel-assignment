@@ -16,7 +16,7 @@ export function getItem(key) {
   let loadedData = localStorage.getItem(key);
 
   if (loadedData === null) {
-    console.error('incorrect key');
+    console.error('Non existent key');
     return null;
   }
 
@@ -61,7 +61,7 @@ export class ArraylocalStorage {
 
   set item(data) {
     if (!Array.isArray(data)) {
-      console.error('Array only');
+      console.error('not Array');
       return;
     }
 
