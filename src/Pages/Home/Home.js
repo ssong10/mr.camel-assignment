@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '../Home/Components/Card';
 import { Link } from 'react-router-dom';
-// import { setItem, ArraylocalStorage } from '../../utils/localStorage';
+// import { ArraylocalStorage } from '../../utils/localStorage';
 import styled from 'styled-components';
 
 // setItem('notInclude', ['루이비통', '나이키']);
@@ -12,18 +12,17 @@ class Home extends React.Component {
   state = {
     cards: [],
   };
-
   componentDidMount() {
     fetch('/asset/data.json')
       .then(res => res.json())
       .then(res => {
-        const cards = res.map((card,id) => {
+        const cards = res.map((card, id) => {
           return {
             ...card,
-            id : id + 1
-          }
-        })
-        this.setState({ cards: cards })
+            id: id + 1,
+          };
+        });
+        this.setState({ cards: cards });
         console.log(cards);
       });
   }
@@ -33,12 +32,11 @@ class Home extends React.Component {
 
     return (
       <div>
-        Home
         <Link to="/recentList">최근조회이력</Link>
         <CardList>
           {cards
             .filter(data => {
-              return data
+              return data;
               // const { brand } = data;
               // console.log(notInclude)
               //const f = notInclude.list.find(string => string === brand);
@@ -53,10 +51,7 @@ class Home extends React.Component {
 
             .map((data, index) => (
               <Box key={index}>
-                <Card
-                  key={index}
-                  item={data}
-                />
+                <Card key={index} item={data} />
               </Box>
             ))}
         </CardList>
@@ -65,20 +60,21 @@ class Home extends React.Component {
   }
 }
 
-
 export default Home;
 
 const CardList = styled.div`
-  background-color: white;
-  border: 3px solid red;
+  background-color: #f7f9fa;
   display: grid;
   box-sizing: border-box;
-
+  width: 80vw;
+  margin: 0 auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 `;
 const Box = styled.div`
   background-color: white;
   border: 1px solid black;
-  width: 25vw;
+  //width: 80%;
+  margin: 10px 15px;
   box-sizing: border-box;
+  text-align: center;
 `;
