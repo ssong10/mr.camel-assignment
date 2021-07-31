@@ -10,7 +10,7 @@
 
 -협업 도구: slack, notion, github, visual studio code
 
-## 구현사항 : 
+### 구현사항 : 
 
 메인페이지 -박세리 
 리스트페이지 및 레이아웃 구현
