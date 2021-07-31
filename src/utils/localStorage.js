@@ -27,7 +27,7 @@ export class ArraylocalStorage {
       setItem(key, []);
     }
     this.key = key;
-    this.list = loadedData;
+    this.list = getItem(key);
   }
 
   push(data) {
