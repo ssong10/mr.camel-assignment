@@ -6,7 +6,7 @@
 
 -**기술 스택**: HTML,Styled Components,JS,React
 
--**배포 주소**: https://61053a8bf5c202ded00c5393--practical-noether-f19fa6.netlify.app/
+-**배포 주소**: https://vigorous-goldwasser-77fe33.netlify.app/
 
 -**협업 도구**: slack, notion, github, visual studio code
 
