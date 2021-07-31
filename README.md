@@ -1,14 +1,14 @@
 ## Mr.camel-assignment 
 
--팀원: 장윤호, 이승열, 강동휘, 박세리
+-**팀원**: 장윤호, 이승열, 강동휘, 박세리
 
--설명: 상품이 나열된 메인페이지, 상품별 상세페이지 그리고 사용자의 상품 조회이력을 확인할 수있는 페이지로 구성되어있는 실습용 프로젝트 
+-**설명**: 상품이 나열된 메인페이지, 상품별 상세페이지 그리고 사용자의 상품 조회이력을 확인할 수있는 페이지로 구성되어있는 실습용 프로젝트 
 
--기술 스택: HTML,Styled Components,JS,React
+-**기술 스택**: HTML,Styled Components,JS,React
 
--배포 주소: https://61053a8bf5c202ded00c5393--practical-noether-f19fa6.netlify.app/
+-**배포 주소**: https://61053a8bf5c202ded00c5393--practical-noether-f19fa6.netlify.app/
 
--협업 도구: slack, notion, github, visual studio code
+-**협업 도구**: slack, notion, github, visual studio code
 
 
 ### 구현사항 : 
