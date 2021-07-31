@@ -6,8 +6,9 @@ import SortModal from './sortModal'
 import BrandFilter from './BrandFilter';
 import { recentShowLocalStorage } from 'utils/localStorage'
 
-// 아마 storage나 props 에서 받아올 데이터
 
+
+// 아마 storage나 props 에서 받아올 데이터
 class RecentList extends React.Component{
     state = {
         defaultItems : [],
@@ -76,12 +77,12 @@ class RecentList extends React.Component{
     }
     
     sortByPrice = () => {
-        return this.state.baseItem.sort((a,b) => {
+        return this.state.baseItem.sort((b,a) => {
             return a.price - b.price
         })
     }
     sortByRecent = () => {
-        return this.state.baseItem.sort((a,b) => {
+        return this.state.baseItem.sort((b,a) => {
             return a.time - b.time
         })
     }
@@ -98,10 +99,10 @@ class RecentList extends React.Component{
                     defaultItems={this.state.defaultItems}
                     handleBrandFilters={filters => this.setState({filters})}
                 />
+                <Button onClick={this.toggleModal}>정렬</Button>
                 <RecentCard
                     showItem={this.showItems(this.state.baseItem,this.state.filters)}
                 />
-                <Button onClick={this.toggleModal}>정렬</Button>
                 <div>
                 <SortModal
                     show={this.state.modal}
