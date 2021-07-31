@@ -96,6 +96,7 @@ class RecentList extends React.Component{
         return (
             <div>
                 <BrandFilter
+                    defaultItems={this.state.defaultItems}
                     handleBrandFilters={filters => this.setState({filters})}
                 />
                 <RecentCard
