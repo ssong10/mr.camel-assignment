@@ -15,7 +15,7 @@ const ModalButton = styled(Button)`
 class RecentList extends React.Component{
     state = {
         defaultItems : [],
-        recentList : recentShowLocalStorage._list,
+        recentList : recentShowLocalStorage.items,
         modal:false,
         filters: [],    
         baseItem: [],
@@ -24,7 +24,7 @@ class RecentList extends React.Component{
 
     async initialData() {
         const defaultItems = await fetchProduct()
-        const baseItem = this.filterItem(defaultItems,recentShowLocalStorage._list)
+        const baseItem = this.filterItem(defaultItems,recentShowLocalStorage.items).reverse();
         this.setState({defaultItems,baseItem})
     }
     componentDidMount() {
@@ -34,7 +34,6 @@ class RecentList extends React.Component{
     // only baseItem setting
     // Item data + { time } -> for order
     filterItem(defaultItems,recentList) {
-        console.log(defaultItems,recentList)
         const filteredItem = recentList.map((item) => {
         const { time , id } = item
         return {
