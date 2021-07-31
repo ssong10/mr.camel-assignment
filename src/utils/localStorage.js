@@ -1,10 +1,11 @@
 const CORRECT_TYPE = ['string','number','boolean','null','object','array'];
-const UNINTEREST_KEY = 'un-interest-list';
+
+const UNINTEREST_KEY = 'unInterest-list';
 const RECENTSHOW_KEY = 'recent-show-list';
 
 export function setItem(key,data) {
     if (!CORRECT_TYPE.includes(typeof data)) {
-        console.error('incorrect data');
+        console.error('incorrect data type');
         return;
     }
 
@@ -35,6 +36,11 @@ export class ArraylocalStorage{
     }
 
     push(data) {
+        if (this.includes(data.id)) {
+            const index = this.indexOf(data.id);
+            this.list.splice(index,1);
+        }
+
         this.list.push(data);
         setItem(this.key,this.list);
     }
@@ -42,6 +48,18 @@ export class ArraylocalStorage{
     includes(id) {
         return this.list.some(item=> item.id === id);
     }
+
+    indexOf(id) {
+        for (const index in this.list) {
+            const item = this.list[index];
+
+            if (item.id === id) return index;
+        }
+
+        return -1;
+    }
+
+   
 }
 
 export const unInterestLocalStorage = new ArraylocalStorage(UNINTEREST_KEY);
