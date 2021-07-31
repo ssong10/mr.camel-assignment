@@ -40,9 +40,7 @@ class Home extends React.Component {
             })
 
             .map((data, index) => (
-              <Box key={index}>
-                <Card key={index} item={data} />
-              </Box>
+              <Card key={index} item={data} />
             ))}
         </CardList>
       </div>
@@ -58,12 +56,4 @@ const CardList = styled.div`
   width: 80vw;
   margin: 0 auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-`;
-const Box = styled.div`
-  background-color: white;
-  border: 1px solid black;
-  margin: 15px;
-  text-align: center;
-  border-radius: 10px;
-  padding: 10px;
 `;
