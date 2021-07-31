@@ -22,8 +22,10 @@ filter 기능을 사용하여 관심없는 상품 처리하는 코드 작성
 
 ## image
 
+메인페이지 : ![메인페이지](https://ifh.cc/g/G4u5mD.png)
+
 최근 목록 조회: ![최근목록조회](https://ifh.cc/g/fAFqTO.jpg)
 
 상세페이지 : ![상세페이지](https://ifh.cc/g/5DAItw.png)
 
-메인페이지 : ![메인페이지](https://ifh.cc/g/G4u5mD.png)
+
