@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import Button from './button'
+import {withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const HeaderWrap = styled.div`
   top: 0;
@@ -9,42 +11,41 @@ const HeaderWrap = styled.div`
   display:flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  border-bottom : 1px solid gray;
+  border-bottom : 1px solid rgba(0,0,0,.2);
   padding: 8px 0px;
+  z-index: 10;
+  background-color: #f9f9f9;
+`
+const RecentListLink = styled(Link)`
+  display: ${props => props.hidden ? 'none' : 'block'};
+  margin-right: 10%;
 `
 
-const RedButton = styled(Button)`
-  color: red;
+const LeftLink = styled(Link)`
+  margin-left: 10%;
 `
 
 class Header extends React.Component {
-  random() {
-    console.log('random')
-  }
-  toHome() {
-    console.log('home')
-  }
-
   render() {
+    const pathname = this.props.history.location.pathname
     return (
       <HeaderWrap>
-        <Button
-          select
-          onClick={this.toHome}
+        <LeftLink to='/'>
+          <Button select={pathname==="/"}>
+            Home
+          </Button>
+        </LeftLink>
+        <RecentListLink 
+          hidden={pathname === '/recentList'}
+          to='/recentList'
         >
-          Home
-        </Button>
-        <Button
-          select
-          onClick={this.random}
-        >
-          Random
-        </Button>
-        <RedButton>b</RedButton>
+          <Button>
+            최근 조회 목록
+          </Button>
+        </RecentListLink>
       </HeaderWrap>
     )
   }
 }
 
-export default Header
+export default withRouter(Header)
