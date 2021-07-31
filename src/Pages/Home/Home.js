@@ -2,29 +2,19 @@ import React from 'react';
 import Card from '../Home/Components/Card';
 //import { Link } from 'react-router-dom';
 // import { ArraylocalStorage } from '../../utils/localStorage';
+import {fetchProduct} from 'utils/api'
 import styled from 'styled-components';
-
-// setItem('notInclude', ['루이비통', '나이키']);
-// const notInclude = new ArraylocalStorage('notInclude');
-//로컬스토리지에서 값을 읽어오는게 가능해지는 코드.
 
 class Home extends React.Component {
   state = {
     cards: [],
   };
+  async getProduct () {
+    const cards = await fetchProduct()
+    this.setState({cards:cards})
+  }
   componentDidMount() {
-    fetch('/asset/data.json')
-      .then(res => res.json())
-      .then(res => {
-        const cards = res.map((card, id) => {
-          return {
-            ...card,
-            id: id + 1,
-          };
-        });
-        this.setState({ cards: cards });
-        console.log(cards);
-      });
+    this.getProduct()
   }
 
   render() {
