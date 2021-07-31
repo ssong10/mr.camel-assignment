@@ -4,15 +4,14 @@ import { fetchProduct } from 'utils/api'
 import Button from '../../Components/button'
 import SortModal from './sortModal'
 import BrandFilter from './BrandFilter';
-//import { recentShowLocalStorage } from 'utils/localStorage'
+import { recentShowLocalStorage } from 'utils/localStorage'
 
 // 아마 storage나 props 에서 받아올 데이터
-const RECENT_LIST = [{id:1,time:1627716047105},{id:2,time:1627720947105},{id:4,time:1627723947105},{id:20,time:1627726547105}]
 
 class RecentList extends React.Component{
     state = {
         defaultItems : [],
-        recentList : RECENT_LIST,
+        recentList : recentShowLocalStorage._list,
         modal:false,
         filters: [],    
         baseItem: [],
@@ -21,7 +20,7 @@ class RecentList extends React.Component{
 
     async initialData() {
         const defaultItems = await fetchProduct()
-        const baseItem = this.filterItem(defaultItems,RECENT_LIST)
+        const baseItem = this.filterItem(defaultItems,recentShowLocalStorage._list)
         this.setState({defaultItems,baseItem})
     }
     componentDidMount() {
